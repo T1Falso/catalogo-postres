@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Postres</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #1a0a00;
+    font-family: 'Lato', sans-serif;
+    color: #2c1a00;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #fffaf5;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(160deg, #3b1a00 0%, #6b3000 50%, #8b4500 100%);
+    padding: 40px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px; right: -40px; bottom: -40px;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,180,80,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 20%, rgba(255,120,40,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .header-emoji {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: #fff8f0;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .header h1 span {
+    display: block;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #f5c87a;
+    margin-bottom: 6px;
+  }
+  .header-tagline {
+    margin-top: 12px;
+    font-size: 13px;
+    color: rgba(255,240,200,0.7);
+    font-style: italic;
+    letter-spacing: 0.5px;
+  }
+  .divider-ornament {
+    text-align: center;
+    padding: 16px 0 8px;
+    color: #c47a30;
+    font-size: 18px;
+    letter-spacing: 8px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 0 16px 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #3b1a00;
+    text-align: center;
+    padding: 20px 0 12px;
+    position: relative;
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: #c47a30;
+    margin: 8px auto 0;
+    border-radius: 2px;
+  }
+
+  /* CARDS */
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #f0e0cc;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(60,20,0,0.06);
+  }
+  .card-header {
+    background: linear-gradient(135deg, #5c2a00 0%, #8b4800 100%);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-icon { font-size: 22px; }
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    color: #fff8f0;
+    font-size: 17px;
+    font-weight: 700;
+    flex: 1;
+  }
+  .card-badge {
+    background: rgba(255,200,100,0.2);
+    border: 1px solid rgba(255,200,100,0.4);
+    color: #f5c87a;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .card-body { padding: 14px 16px; }
+  .card-desc {
+    font-size: 12px;
+    color: #7a5030;
+    font-style: italic;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .price-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .price-item {
+    background: #fffaf5;
+    border: 1px solid #f0e0cc;
+    border-radius: 10px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .price-item.full-width {
+    grid-column: 1 / -1;
+  }
+  .price-label {
+    font-size: 11px;
+    color: #9a6040;
+    margin-bottom: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .price-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: #c47a30;
+    font-family: 'Playfair Display', serif;
+  }
+  .price-note {
+    font-size: 10px;
+    color: #b08060;
+    margin-top: 1px;
+  }
+
+  /* CUPCAKES SPECIAL */
+  .cupcake-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .cupcake-item {
+    background: #fffaf5;
+    border: 1px solid #f0e0cc;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+  .cupcake-type {
+    font-size: 11px;
+    color: #7a4020;
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .cupcake-price {
+    font-size: 18px;
+    color: #c47a30;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+  .cupcake-detail {
+    font-size: 10px;
+    color: #b08060;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .cupcake-min {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: #fff5e8;
+    border: 1px solid #f5d8a8;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 11px;
+    color: #7a4020;
+  }
+  .cupcake-min strong { color: #c47a30; }
+
+  /* TARTALETAS */
+  .tartaleta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* PASTELES */
+  .pasteles-box {
+    background: linear-gradient(135deg, #fff5e8 0%, #ffe8cc 100%);
+    border: 2px dashed #c47a30;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .pasteles-emoji { font-size: 36px; margin-bottom: 8px; display: block; }
+  .pasteles-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #3b1a00;
+    margin-bottom: 6px;
+  }
+  .pasteles-desc {
+    font-size: 12px;
+    color: #7a4020;
+    line-height: 1.5;
+  }
+
+  /* NOTE */
+  .note-box {
+    background: #fff8f0;
+    border-left: 3px solid #c47a30;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin: 4px 0 8px;
+    font-size: 11.5px;
+    color: #7a4020;
+    line-height: 1.5;
+  }
+  .note-box strong { color: #c47a30; }
+
+  /* FOOTER */
+  .footer {
+    background: linear-gradient(160deg, #3b1a00 0%, #5c2a00 100%);
+    padding: 28px 24px;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .footer-cta {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #fff8f0;
+    margin-bottom: 8px;
+  }
+  .footer-sub {
+    font-size: 12px;
+    color: rgba(245,200,120,0.8);
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .footer-icons {
+    margin-top: 16px;
+    font-size: 24px;
+    letter-spacing: 8px;
+  }
+  .footer-divider {
+    width: 60px;
+    height: 1px;
+    background: rgba(255,200,100,0.3);
+    margin: 12px auto;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span class="header-emoji">🍰</span>
+    <h1>
+      <span>Catálogo</span>
+      Postres Artesanales
+    </h1>
+    <p class="header-tagline">Hechos con amor · Ingredientes frescos · Pedidos personalizados</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Tortas & Pasteles</div>
+
+    <!-- CHEESECAKE -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🫐</span>
+        <span class="card-name">Cheesecake</span>
+        <span class="card-badge">⭐ Popular</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Mora · Fresa · Maracuyá · Dulce de leche — elige tu favorito</p>
+        <div class="price-grid">
+          <div class="price-item">
+            <div class="price-label">8 porciones</div>
+            <div class="price-amount">$22</div>
+          </div>
+          <div class="price-item">
+            <div class="price-label">10 porciones</div>
+            <div class="price-amount">$25</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHEESECAKE FRUTOS ROJOS -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🍓</span>
+        <span class="card-name">Cheesecake Frutos Rojos</span>
+        <span class="card-badge">Premium</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Mora · Arándanos · Fresa — una explosión de sabor</p>
+        <div class="price-grid">
+          <div class="price-item full-width">
+            <div class="price-label">8–10 porciones</div>
+            <div class="price-amount">$32</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHOCOFLAN -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🍫</span>
+        <span class="card-name">Chocoflan</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">La combinación perfecta de chocolate y flan de queso</p>
+        <div class="price-grid">
+          <div class="price-item">
+            <div class="price-label">8 porciones</div>
+            <div class="price-amount">$22</div>
+          </div>
+          <div class="price-item">
+            <div class="price-label">12 porciones</div>
+            <div class="price-amount">$28</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLAN DE QUESO -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🍮</span>
+        <span class="card-name">Flan de Queso</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Cremoso y suave · Incluye cobertura de mora o fresa</p>
+        <div class="price-grid">
+          <div class="price-item">
+            <div class="price-label">8 porciones</div>
+            <div class="price-amount">$18</div>
+          </div>
+          <div class="price-item">
+            <div class="price-label">12 porciones</div>
+            <div class="price-amount">$22</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRES LECHES -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🥛</span>
+        <span class="card-name">Tres Leches</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Esponjoso y húmedo, bañado en tres tipos de leche</p>
+        <div class="price-grid">
+          <div class="price-item">
+            <div class="price-label">8 porciones</div>
+            <div class="price-amount">$16</div>
+          </div>
+          <div class="price-item">
+            <div class="price-label">12 porciones</div>
+            <div class="price-amount">$22</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUDIN -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🍞</span>
+        <span class="card-name">Budín</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Casero y reconfortante, perfecto para compartir</p>
+        <div class="price-grid">
+          <div class="price-item">
+            <div class="price-label">8 porciones</div>
+            <div class="price-amount">$10</div>
+          </div>
+          <div class="price-item">
+            <div class="price-label">12 porciones</div>
+            <div class="price-amount">$15</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Dulces & Mini Postres</div>
+
+    <!-- CUPCAKES -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🧁</span>
+        <span class="card-name">Cupcakes</span>
+        <span class="card-badge">⭐ Popular</span>
+      </div>
+      <div class="card-body">
+        <div class="cupcake-grid">
+          <div class="cupcake-min">
+            <strong>Mínimo 6 unidades</strong> · Mejor precio desde 12 unidades
+          </div>
+          <div class="cupcake-item">
+            <div class="cupcake-type">Básicos</div>
+            <div class="cupcake-price">$1.15</div>
+            <div class="cupcake-detail">c/u</div>
+          </div>
+          <div class="cupcake-item">
+            <div class="cupcake-type">Rellenos</div>
+            <div class="cupcake-price">$1.30</div>
+            <div class="cupcake-detail">c/u</div>
+          </div>
+          <div class="cupcake-item">
+            <div class="cupcake-type">Temático con Tupper Cake</div>
+            <div class="cupcake-price">$1.75</div>
+            <div class="cupcake-detail">c/u</div>
+          </div>
+          <div class="cupcake-item">
+            <div class="cupcake-type">En contenedor individual</div>
+            <div class="cupcake-price">$1.75</div>
+            <div class="cupcake-detail">c/u</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TARTALETAS -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🥧</span>
+        <span class="card-name">Tartaletas</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Masa crocante con relleno cremoso y fruta fresca</p>
+        <div class="tartaleta-grid price-grid">
+          <div class="price-item">
+            <div class="price-label">Grande (~6 porciones)</div>
+            <div class="price-amount">$15</div>
+          </div>
+          <div class="price-item">
+            <div class="price-label">Individual</div>
+            <div class="price-amount">$1.75</div>
+            <div class="price-note">mín. 6 unidades</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALFAJORES -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🍪</span>
+        <span class="card-name">Alfajores</span>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Suaves y rellenos de dulce de leche artesanal</p>
+        <div class="price-grid">
+          <div class="price-item full-width">
+            <div class="price-label">Precio por unidad · Mínimo 6</div>
+            <div class="price-amount">$1.35</div>
+            <div class="price-note">c/u</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Especiales</div>
+
+    <!-- PASTELES PERSONALIZADOS -->
+    <div class="pasteles-box">
+      <span class="pasteles-emoji">🎂</span>
+      <p class="pasteles-title">Pasteles Personalizados</p>
+      <p class="pasteles-desc">
+        ¿Tienes un diseño en mente? 🎨<br>
+        Creamos el pastel de tus sueños para cumpleaños, bodas, baby shower y más.<br><br>
+        <strong style="color:#c47a30;">Precio variable</strong> según diseño e ingredientes.
+      </p>
+    </div>
+
+    <div class="note-box">
+      📦 <strong>Pedidos con anticipación</strong> — para garantizar disponibilidad, contáctanos con tiempo.
+    </div>
+
+    <div style="height: 8px;"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-cta">¡Haz tu pedido! 🍰</div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">
+      Consulta disponibilidad y personalización<br>
+      Envíanos un mensaje por WhatsApp
+    </div>
+    <div class="footer-icons">🍓🧁🍮</div>
+  </div>
+
+</div>
+</body>
+</html>
